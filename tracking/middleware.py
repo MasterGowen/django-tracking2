@@ -24,8 +24,12 @@ track_ignore_user_agents = [re.compile(x, re.IGNORECASE) for x in TRACK_IGNORE_U
 
 log = logging.getLogger(__file__)
 
+if django.VERSION >= (1, 10):
+    from django.utils.deprecation import MiddlewareMixin
+else:
+    MiddlewareMixin = object
 
-class VisitorTrackingMiddleware(object):
+class VisitorTrackingMiddleware(MiddlewareMixin):
     def _should_track(self, user, request, response):
         # Session framework not installed, nothing to see here..
         if not hasattr(request, 'session'):
