@@ -2,6 +2,7 @@ import re
 import logging
 import warnings
 
+import django
 from django.db import IntegrityError, transaction
 from django.utils import timezone
 from django.utils.encoding import smart_text
